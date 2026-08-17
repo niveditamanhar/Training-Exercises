@@ -61,6 +61,11 @@ Lab exercise 3 : SQL Fundamentals
 
 8. Find every transaction that has no associated instrument (instrument_id IS NULL).
 -  SELECT * from transactions WHERE instrument_id IS NULL;
+9. List the distinct list of account types that actually exist in the accounts table.
+-  SELECT DISTINCT(account_type) from accounts;
+
+10. List every client along with their date of birth, only for clients whose DOB is not null.
+-  SELECT name, date_of_birth from clients WHERE date_of_birth IS NOT NULL;
 
 
 Module 04 Lab: Joins and Aggregation Against the Enterprise Schema
@@ -88,8 +93,3 @@ ON c.advisor_id = a.advisor_id;
 
 7. Window function: client name and join date, with RANK() by join date.
 -  SELECT name, joined_date, Rank() Over(order by joined_date) AS join_order from clients;
-9. List the distinct list of account types that actually exist in the accounts table.
--  SELECT DISTINCT(account_type) from accounts;
-
-10. List every client along with their date of birth, only for clients whose DOB is not null.
--  SELECT name, date_of_birth from clients WHERE date_of_birth IS NOT NULL;
