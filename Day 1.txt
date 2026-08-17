@@ -62,6 +62,32 @@ Lab exercise 3 : SQL Fundamentals
 8. Find every transaction that has no associated instrument (instrument_id IS NULL).
 -  SELECT * from transactions WHERE instrument_id IS NULL;
 
+
+Module 04 Lab: Joins and Aggregation Against the Enterprise Schema
+
+1. INNER JOIN: list every client's name alongside their advisor's name.
+-  SELECT c.name AS client_name, a.name AS advisor_name FROM clients c INNER JOIN advisors a
+ON c.advisor_id = a.advisor_id;
+
+2a. LEFT JOIN: list every client's name alongside any account they have.
+-  SELECT c.name, a.account_id, a.account_type FROM clients c LEFT JOIN accounts a ON c.client_id = a.client_id;
+
+2b. Rewrite 2a as an INNER JOIN and confirm Nadia Farouk disappears. Why?
+
+3. Three-table join: account ID and type, client name, advisor name.
+-  SELECT a.account_type, a.account_id, c.name as client_name, b.name as advisor_name from accounts a, clients c, advisors b WHERE c.client_id = a.client_id and c.advisor_id = b.advisor_id;
+-  SELECT acc.accounts
+4. GROUP BY: for each advisor, count how many clients they manage.
+-  SELECT a.name, count(c.name) FROM advisors a, clients c WHERE a.advisor_id = c.advisor_id GROUP by a.name;
+
+5. HAVING: advisors managing three or more clients.
+-  SELECT a.name, count(c.name) FROM advisors a, clients c WHERE a.advisor_id = c.advisor_id GROUP by a.name HAVING count(c.name)>=3;
+
+6. Total value of all BUY transactions per account, highest first.
+-  SELECT account_id, sum(price) as total_amount from transaction where txn_type='BUY' group by account_id order by total_amount;
+
+7. Window function: client name and join date, with RANK() by join date.
+-  SELECT name, joined_date, Rank() Over(order by joined_date) AS join_order from clients;
 9. List the distinct list of account types that actually exist in the accounts table.
 -  SELECT DISTINCT(account_type) from accounts;
 
