@@ -1,0 +1,69 @@
+Meta commands used : \d tablename
+
+Accounts
+1. account_id - primary key , used as foreign key for holdings and transactions
+2. client_id - foreign key from clients
+3. account_type
+4. opened_date
+5. currency
+
+Advisors
+1. advisor_id - primary key, used as foreign key in clients
+2. name
+3. region
+4. hired_date
+
+Clients
+1. client_id - primary key, used as foreign key in accounts
+2. name 
+3. dob
+4. risk_profile
+5. advisor_id - foreign key from advisors
+6. joined_date
+
+Holdings
+1. holding_id - primary key
+2. account_id - foreign key for accountys
+3. instruments_id - foreign key from instruments
+4. quantity
+5. as_of_date
+
+Instruments
+1. 
+Transactions
+
+
+Lab exercise 3 : SQL Fundamentals
+
+1. List every client's name and risk profile.
+-  SELECT name, risk_profile FROM clients;
+
+2. List the names of all clients with a "Cautious" risk profile.
+-  SELECT name, risk_profile FROM clients WHERE risk_profile = 'Cautious';
+
+3. List all clients who joined before 2018-01-01, ordered by join date, oldest first.
+-  SELECT name, joined_date FROM clients WHERE joined_date ='2020-01-01' ORDER BY joined_date DESC;
+
+4. List all clients with a risk profile of either "Cautious" or "Adventurous".
+-  SELECT name FROM clients WHERE risk_profile in ('Cautious','Balanced');
+
+4b. Same query using OR instead of IN.
+-  SELECT name from clients WHERE risk_profile='Cautious' or risk_profile='Balanced';
+
+5. List the name and date of birth of every client born in the 1980s.
+-  SELECT name, date_of_birth from clients WHERE date_of_birth >'1980-01-01' and date_of_birth<'1989-12-31';
+
+6. List every instrument's ticker and name, ordered alphabetically by name.
+-  SELECT ticker, name from instruments ORDER BY name;
+
+7. List all transactions of type 'DIVIDEND', most recent first.
+-  SELECT * from transactions WHERE txn_type='DIVIDEND' ORDER BY txn_date DESC;
+
+8. Find every transaction that has no associated instrument (instrument_id IS NULL).
+-  SELECT * from transactions WHERE instrument_id IS NULL;
+
+9. List the distinct list of account types that actually exist in the accounts table.
+-  SELECT DISTINCT(account_type) from accounts;
+
+10. List every client along with their date of birth, only for clients whose DOB is not null.
+-  SELECT name, date_of_birth from clients WHERE date_of_birth IS NOT NULL;
